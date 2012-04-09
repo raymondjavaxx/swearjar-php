@@ -11,6 +11,10 @@
 			"email": "raymondjavaxx@gmail.com"
 		}
 	],
+	"autoload": {
+		"psr-0": {"swearjar": "libraries/"}
+	},
+	"target-dir": "swearjar",
 	"require": {
 		"symfony/yaml": "2.0.*"
 	}
