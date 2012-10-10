@@ -5,4 +5,4 @@ set_include_path(implode(PATH_SEPARATOR, array(
 	get_include_path()
 )));
 
-require_once dirname(__DIR__) . '/vendor/.composer/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
