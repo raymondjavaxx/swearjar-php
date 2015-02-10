@@ -44,23 +44,25 @@ class Tester {
 	 * @return void
 	 */
 	public function scan($text, \Closure $callback ) {
-		preg_match_all('/\b[a-zA-Z-]+\b/', $text, $matches);
-		foreach ($matches[0] as $word) {
-			$types = isset($this->_matchers['simple'][strtolower($word)])
-				? $this->_matchers['simple'][strtolower($word)]
-				: false;
+		preg_match_all('/\w+/', $text, $matches, PREG_OFFSET_CAPTURE);
 
-			if ($types) {
-				if ($callback->__invoke($word, $types) === false) {
+		foreach ($matches[0] as $match) {
+			list($word, $index) = $match;
+
+			$key = mb_strtolower($word);
+
+			if (array_key_exists($key, $this->_matchers['simple'])) {
+				if ($callback->__invoke($word, $index, $this->_matchers['simple'][$key]) === false) {
 					return;
 				}
 			}
 		}
 
 		foreach ($this->_matchers['regex'] as $regex => $types) {
-			preg_match_all('/' . $regex . '/i', $text, $matches);
-			foreach ($matches[0] as $word) {
-				if ($callback->__invoke($word, $types) === false) {
+			preg_match_all('/' . $regex . '/i', $text, $matches, PREG_OFFSET_CAPTURE);
+			foreach ($matches[0] as $match) {
+				list($word, $index) = $match;
+				if ($callback->__invoke($word, $index, $types) === false) {
 					return;
 				}
 			}
@@ -76,7 +78,7 @@ class Tester {
 	public function profane($text) {
 		$profane = false;
 
-		$this->scan($text, function($word, $types) use (&$profane) {
+		$this->scan($text, function($word, $index, $types) use (&$profane) {
 			$profane = true;
 			return false;
 		});
@@ -93,7 +95,7 @@ class Tester {
 	public function scorecard($text) {
 		$scorecard = array();
 
-		$this->scan($text, function($word, $types) use (&$scorecard) {
+		$this->scan($text, function($word, $index, $types) use (&$scorecard) {
 			foreach ($types as $type) {
 				if (isset($scorecard[$type])) {
 					$scorecard[$type] += 1;
@@ -117,9 +119,9 @@ class Tester {
 	public function censor($text) {
 		$censored = $text;
 
-		$this->scan($text, function($word, $types) use (&$censored) {
+		$this->scan($text, function($word, $index, $types) use (&$censored) {
 			$censoredWord = preg_replace('/\S/', '*', $word);
-			$censored = str_ireplace($word, $censoredWord, $censored);
+			$censored = mb_substr($censored, 0, $index) . $censoredWord . mb_substr($censored, $index + mb_strlen($word));
 			return true;
 		});
 

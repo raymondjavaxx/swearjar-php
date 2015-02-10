@@ -32,4 +32,10 @@ class TesterTest extends \PHPUnit_Framework_TestCase {
 		$expected = 'John Doe has a massive **** ** he is gonna use to **** everybody';
 		$this->assertEquals($expected, $text);
 	}
+
+	public function testEdgeCases() {
+		$result = $this->tester->censor("Assasin's Creed Ass");
+		$expected = "Assasin's Creed ***";
+		$this->assertEquals($expected, $result);
+	}
 }
