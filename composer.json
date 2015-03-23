@@ -2,7 +2,7 @@
 	"name": "swearjar/swearjar",
 	"type": "library",
 	"description": "Profanity detection lib",
-	"keywords":[],
+	"keywords":["profanity", "censor", "swear", "curse"],
 	"homepage":"http://github.com/raymondjavaxx/swearjar-php",
 	"license":"MIT",
 	"authors":[
