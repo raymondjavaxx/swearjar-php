@@ -10,6 +10,7 @@
 	stopOnFailure="false"
 	syntaxCheck="false"
 	bootstrap="tests/bootstrap.php"
+	printerClass="PHPUnit_TextUI_ResultPrinter"
 >
 	<testsuites>
 		<testsuite name="Swearjar Test Suite">
