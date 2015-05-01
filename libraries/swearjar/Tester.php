@@ -33,7 +33,7 @@ class Tester {
 	 * @return void
 	 */
 	public function loadFile($path) {
-		$this->_matchers = Yaml::parse($path);
+		$this->_matchers = Yaml::parse(file_get_contents($path));
 	}
 
 	/**
