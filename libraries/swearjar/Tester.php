@@ -119,11 +119,7 @@ class Tester {
 	public function censor($text, $hint = false) {
 		$censored = $text;
 
-		if($hint) {
-			$offset = 1;
-		} else {
-			$offset = 0;
-		}
+		$offset = $hint ? 1 : 0;
 
 		$this->scan($text, function($word, $index, $types) use (&$censored, $offset) {
 			$censoredWord = preg_replace('/\S/', '*', $word);
