@@ -5,7 +5,7 @@ namespace swearjar;
 use \Symfony\Component\Yaml\Yaml;
 
 /**
- * undocumented class
+ * Profanity tester class.
  *
  * @package swearjar
  */
@@ -27,9 +27,9 @@ class Tester {
 	}
 
 	/**
-	 * undocumented function
+	 * Loads a YAML file containing rules for matching profanity.
 	 *
-	 * @param string $path
+	 * @param string $path  YAML ruleset file path
 	 * @return void
 	 */
 	public function loadFile($path) {
@@ -37,13 +37,21 @@ class Tester {
 	}
 
 	/**
-	 * undocumented function
+	 * Scans `$text` looking for profanity. The callback is invoked on
+	 * each instance of profanity.
 	 *
+	 * The signature of `$callback` is:
+	 * 
+	 *    function ($word, $index, $types) { ... }
+	 * 
+	 * Where `$word` is the possible profane word, `$index` is the offset of the word
+	 * in the text, and `$types` is a list of tags for the word.
+	 * 
 	 * @param string $text
 	 * @param Closure $callback
 	 * @return void
 	 */
-	public function scan($text, \Closure $callback ) {
+	public function scan($text, \Closure $callback) {
 		preg_match_all('/\w+/', $text, $matches, PREG_OFFSET_CAPTURE);
 
 		foreach ($matches[0] as $match) {
@@ -70,7 +78,7 @@ class Tester {
 	}
 
 	/**
-	 * Returns true if $text contains profanity
+	 * Returns true if `$text` contains profanity
 	 *
 	 * @param string $text
 	 * @return boolean
@@ -87,7 +95,7 @@ class Tester {
 	}
 
 	/**
-	 * undocumented function
+	 * Analyzes `$text` and generates a report of the type of profanity found.
 	 *
 	 * @param string $text
 	 * @return array
@@ -111,9 +119,10 @@ class Tester {
 	}
 
 	/**
-	 * undocumented function
+	 * Scans `$text` and censors profanity.
 	 *
 	 * @param string $text
+	 * @param boolean $hint (optional)
 	 * @return string
 	 */
 	public function censor($text, $hint = false) {
