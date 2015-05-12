@@ -32,8 +32,8 @@ class TesterTest extends \PHPUnit_Framework_TestCase {
 		$expected = 'John Doe has a massive **** ** he is gonna use to **** everybody';
 		$this->assertEquals($expected, $text);
 
-		$text = $this->tester->censor('John Doe has a massive hard on he is gonna use to fuck everybody', true);
-		$expected = 'John Doe has a massive h*** o* he is gonna use to f*** everybody';
+		$text = $this->tester->censor('John Doe has a massive hard on he is gonna use to fuck everybody in the ass', true);
+		$expected = 'John Doe has a massive h*** ** he is gonna use to f*** everybody in the a**';
 		$this->assertEquals($expected, $text);
 	}
 
