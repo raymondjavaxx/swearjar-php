@@ -16,7 +16,7 @@ class Tester {
 	/**
 	 * Constructor
 	 *
-	 * @param string $file 
+	 * @param string $file
 	 */
 	public function __construct($file = null) {
 		if ($file === null) {
@@ -29,7 +29,7 @@ class Tester {
 	/**
 	 * undocumented function
 	 *
-	 * @param string $path 
+	 * @param string $path
 	 * @return void
 	 */
 	public function loadFile($path) {
@@ -39,8 +39,8 @@ class Tester {
 	/**
 	 * undocumented function
 	 *
-	 * @param string $text 
-	 * @param Closure $callback 
+	 * @param string $text
+	 * @param Closure $callback
 	 * @return void
 	 */
 	public function scan($text, \Closure $callback ) {
@@ -72,7 +72,7 @@ class Tester {
 	/**
 	 * Returns true if $text contains profanity
 	 *
-	 * @param string $text 
+	 * @param string $text
 	 * @return boolean
 	 */
 	public function profane($text) {
@@ -89,7 +89,7 @@ class Tester {
 	/**
 	 * undocumented function
 	 *
-	 * @param string $text 
+	 * @param string $text
 	 * @return array
 	 */
 	public function scorecard($text) {
@@ -113,15 +113,21 @@ class Tester {
 	/**
 	 * undocumented function
 	 *
-	 * @param string $text 
+	 * @param string $text
 	 * @return string
 	 */
-	public function censor($text) {
+	public function censor($text, $hint = false) {
 		$censored = $text;
 
-		$this->scan($text, function($word, $index, $types) use (&$censored) {
+		if($hint) {
+			$offset = 1;
+		} else {
+			$offset = 0;
+		}
+
+		$this->scan($text, function($word, $index, $types) use (&$censored, $offset) {
 			$censoredWord = preg_replace('/\S/', '*', $word);
-			$censored = mb_substr($censored, 0, $index) . $censoredWord . mb_substr($censored, $index + mb_strlen($word));
+			$censored = mb_substr($censored, 0, $index + $offset) . mb_substr($censoredWord, $offset) . mb_substr($censored, $index + mb_strlen($word));
 			return true;
 		});
 
