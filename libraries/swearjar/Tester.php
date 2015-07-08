@@ -52,7 +52,7 @@ class Tester {
 	 * @return void
 	 */
 	public function scan($text, \Closure $callback) {
-		preg_match_all('/\w+/', $text, $matches, PREG_OFFSET_CAPTURE);
+		preg_match_all('/\w+/u', $text, $matches, PREG_OFFSET_CAPTURE);
 
 		foreach ($matches[0] as $match) {
 			list($word, $index) = $match;
