@@ -144,7 +144,7 @@ class Tester {
      *      ]
      *  ]</pre><br/>. An entry may appear more than once
      */
-    function getSwearWordsByTime($text) {
+    function getSwearWordsByType($text) {
         $output = array();
 
         $this->scan($text, function($word, $index, $types) use (&$output) {
