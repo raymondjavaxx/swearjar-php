@@ -15,7 +15,7 @@
 		"psr-0": {"swearjar": "libraries/"}
 	},
 	"require": {
-		"symfony/yaml": "^2.0"
+		"symfony/yaml": "^3.0"
 	},
 	"require-dev": {
 	  "phpunit/phpunit": "~4.4"
